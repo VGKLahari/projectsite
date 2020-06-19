@@ -4,7 +4,7 @@ from django.db import connection
 # Create your views here.
 def delete_session(request):
     try:
-        del request.session['']
+        del request.session['userid']
         del request.session['password']
         return redirect(index)
     except:
