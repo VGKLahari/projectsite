@@ -20,7 +20,6 @@ def admin(request):
 def super_admin(request):
     id=request.POST["name"]
     pword=request.POST["pword"]
-    print(request.session.items())
     if (id in "100") &( pword in "cbit"): #static userid,password
         return render(request,"super_admin.html")
     else:
