@@ -4,6 +4,8 @@ from django.db import connection
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_control
+from django.http import HttpResponse
+import requests
 # Create your views here.
 
 #@cache_control(no_cache=True, must_revalidate=True,no_store=True)
@@ -27,7 +29,13 @@ def index(request):
         return render(request,'super_admin.html')
     except:
 
-        return render(request,"index.html")
+        response=requests.get('http://localhost:5000/clubnames')
+        club_names=response.json()
+        clubs=[]
+        for i in club_names:
+            clubs.append(i['clubname'])
+        return render(request,'index2.html',{'club':clubs})
+
 @cache_control(no_cache=True, must_revalidate=True,no_store=True)
 def admin(request):
     
@@ -57,3 +65,10 @@ def super_admin(request):
         return render(request,"super_admin.html",{'data':data})
     else:
         return render(request,"index.html")
+
+
+def adminlog(request):
+    print('hello')
+    club = request.GET.get("club")
+    return HttpResponse("hello world")
+    return render(request,'admin2.html')
