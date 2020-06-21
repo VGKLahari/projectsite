@@ -28,8 +28,8 @@
               <a class="dropdown-item" href="#">Something else here</a>
             </div>
           </li>
-        <form class="form-inline my-2 my-lg-0 action=" action="{% url 'delete_session' %}">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
+        <form class="form-inline my-2 my-lg-0 action=" action="{% url 'delete_session' %}" >
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit" value="slogout" name="logout">Logout</button>
         </form>
       </div>
     </nav>
@@ -38,7 +38,7 @@
     	<div class="container text-center">
     <center>
     <a class="btn btn-primary w-50" href="http://www.google.com" role="button" >Add a Club.</a><br><br>
-    <a class="btn btn-primary w-50" href="" role="button" >Display all admins</a><br><br>
+    <a class="btn btn-primary w-50" href="{% url 'viewadmin' %}" role="button" >Display all admins</a><br><br>
     <a class="btn btn-primary w-50" href="http://www.google.com" role="button" >Show all clubs</a><br><br>
     <a class="btn btn-primary w-50" href="http://www.google.com" role="button" >Delete a Club.</a><br><br>
     <a class="btn btn-primary w-50" href="http://www.google.com" role="button" >Check out a specific club</a><br><br>

@@ -23,11 +23,14 @@ Kokapet(Village),Gandipet,Hyderabad,Telangana-500075,www.cbit.ac.in</h5>
         }
     }
 </script>
+
 	<div class="modal-body row">
   <div class="col-md-5">
 
     <div class="container" style="margin: auto; width: 40%; margin-top: 100px;">
-    
+      {% if alert %}
+      <p style="text-align: center;">Invalid Credentials</p>
+      {% endif %}
     <div class="card" style="width: 18rem;">
         <button type="button" class="btn btn-primary btn-lg"  id="sadminbutton" onclick='display("sadminbutton");' >Super-Admin</button>
   <div class="card-body" id="sadmin" style="display:none">
@@ -37,15 +40,17 @@ Kokapet(Village),Gandipet,Hyderabad,Telangana-500075,www.cbit.ac.in</h5>
 
       {% csrf_token %}
   <div class="form-group">
-    <label for="exampleInputEmail1">Name</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name">
+    <label for="exampleInputEmail1">ID</label>
+    <input type="text" class="form-control" required id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter id" name="sid">
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="pword">
+    <input type="password" class="form-control" required id="exampleInputPassword1" placeholder="Password" name="spword">
   </div>
   <button type="submit" class="btn btn-primary">Login</button>
+
 </form>
+
   </div>
 </div>
 
@@ -66,10 +71,14 @@ Kokapet(Village),Gandipet,Hyderabad,Telangana-500075,www.cbit.ac.in</h5>
   <div class="card-body" id="admin" style="display: none;">
     
     <form action ="adminlogin/" >
+      <div class="btn-group-vertical" >
         {% for i in club %}
-    <input type="submit" name="club" value={{i}}>
-    <br>
+       
+    <input type="submit" class="btn btn-primary btn-lg" name="club" value={{i}} style="border: 3px solid white;">
+    
+    
     {% endfor %}
+      </div>
  
     </form>
   </div>

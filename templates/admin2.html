@@ -1,20 +1,19 @@
 {% extends "layout.html"%}
 
 {%block heading%}
-<h1 class="text-emphasis-variant">Super-Admin Page</h1><br><br>
+<h1 class="text-emphasis-variant">Admin Login Page</h1><br><br>
 {%endblock%}
 {%block body%}
 
 
-<div class="card" style="width: 18rem;">
-    <button type="button" class="btn btn-primary btn-lg"  id="adminbutton" onclick="display('adminbutton');" >Admin</button>
-<div class="card-body" id="admin" style="display: none;">
+<div class="card" style="width: 18rem;align-items: center;position:absolute;left:41%">
+<div class="card-body" id="admin" >
 <h5 class="card-title">Admin Login</h5>
-<form action ="admin/" method="post">
+<form action ="admin/" method="post" >
 {% csrf_token %}
 <div class="form-group">
 <label for="exampleInputEmail1">Name</label>
-<input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name">
+<input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter ID" name="id">
 </div>
 <div class="form-group">
 <label for="exampleInputPassword1">Password</label>
@@ -24,4 +23,8 @@
 </form>
 </div>
 </div>
+{% if alert %}
+      <p style="text-align: center;">Invalid Credentials</p>
+      {% endif %}
+
 {% endblock%}
