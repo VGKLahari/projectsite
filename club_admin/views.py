@@ -46,7 +46,6 @@ def index(request):
         b=request.session['spassword']
         return render(request,'super_admin.html')
     except:
-
         response=requests.get('http://localhost:5000/clubnames')
         club_names=response.json()
         clubs=[]
@@ -125,7 +124,8 @@ def adminlog(request):
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def viewadmin(request):
-    response=requests.get('http://localhost:5000/adminlogin',headers = {'Authorization':f'Bearer {sadmintoken}'})
+    global admintoken
+    response=requests.get('http://localhost:5000/addclub',headers = {'Authorization':f'Bearer {admintoken}'})
     data=response.json()
     admin={}
     for i in data:
