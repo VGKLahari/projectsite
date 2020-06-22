@@ -24,4 +24,6 @@ urlpatterns = [
     path('delete/', views.delete_session,name="delete_session"),
     path('adminlogin/',views.adminlog,name="adminlogin"),
     re_path('/viewadmin/',views.viewadmin,name="viewadmin"),
+    re_path('addadmins/',views.addadmins,name="addadmins"),
+    re_path('addadmin/',views.addadmin,name="addadmin")
 ]

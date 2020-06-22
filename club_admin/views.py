@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_control
 from django.http import HttpResponse
 import requests
+from password_generator import PasswordGenerator
 # Create your views here.
 alert = 0
 flag=0
@@ -14,12 +15,12 @@ flag2=0
 
 #@cache_control(no_cache=True, must_revalidate=True,no_store=True)
 def delete_session(request):
-    
+
     d = request.GET.get("logout")
     if(d == 'slogout'):
 
         try:
-            
+
             del request.session['suserid']
             del request.session['spassword']
             logout(request)
@@ -29,7 +30,7 @@ def delete_session(request):
             return redirect(index)
     else:
         try:
-            
+
             del request.session['userid']
             del request.session['password']
             logout(request)
@@ -49,6 +50,7 @@ def index(request):
         response=requests.get('http://localhost:5000/clubnames')
         club_names=response.json()
         clubs=[]
+        print(club_names)
         for i in club_names:
             clubs.append(i['clubname'].capitalize()+"_Club")
         if(flag==1):
@@ -64,7 +66,7 @@ def admin(request):
     global flag2
     id=request.POST["id"]
     pword=request.POST["pword"]
-    
+
     global admintoken
     response = requests.post('http://localhost:5000/adminlog',data={'username':id,'password':pword})
     print(response)
@@ -72,7 +74,7 @@ def admin(request):
     print(result)
     try:
         admintoken=result['access_token']
-        
+
         request.session['userid'] =id
         request.session['password']=pword
         alert2 = 0
@@ -93,7 +95,7 @@ def super_admin(request):
     result = response.json()
     try:
         sadmintoken=result['access_token']
-        
+
         request.session['suserid'] =id
         request.session['spassword']=pword
         alert = 0
@@ -106,7 +108,7 @@ def super_admin(request):
 
 
 def adminlog(request):
-    
+
     global alert2
     global flag2
     try:
@@ -124,12 +126,27 @@ def adminlog(request):
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def viewadmin(request):
-    global admintoken
-    response=requests.get('http://localhost:5000/addclub',headers = {'Authorization':f'Bearer {admintoken}'})
+    global sadmintoken
+    response=requests.get('http://localhost:5000/addclub',headers = {'Authorization':f'Bearer {sadmintoken}'})
     data=response.json()
     admin={}
     for i in data:
         admin[i["clubname"]]=i["username"]
     return render(request,"viewadmins.html",{'data':admin})
-    
-   
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def addadmins(request):
+    global sadmintoken
+    id=request.POST["id"]
+    name=request.POST["name"]
+    cname=request.POST["cname"]
+    pwo=PasswordGenerator()
+    pword=pwo.generate()
+    params = dict(uid=id,username=name,clubname=cname)
+    print(sadmintoken)
+    response=requests.post('http://localhost:5000/addclub',params=params,headers ={'Authorization':f'Bearer {sadmintoken}'})
+    data=response.json()
+    return redirect(viewadmin)
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def addadmin(request):
+    return render(request,'addadmin.html')
