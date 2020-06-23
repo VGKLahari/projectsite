@@ -18,10 +18,14 @@ from django.urls import path,include,re_path
 from club_admin import views
 
 urlpatterns = [
-    path('',views.index,name="index"),
-    path('adminlogin/admin/',views.admin,name="admin"),
-    path('super_admin/',views.super_admin,name="super_admin"),
-    path('delete/', views.delete_session,name="delete_session"),
-    path('adminlogin/',views.adminlog,name="adminlogin"),
-    re_path('/viewadmin/',views.viewadmin,name="viewadmin"),
+     path('',views.index,name="index"),
+        path('adminlogin/admin/',views.admin,name="admin"),
+        path('super_admin/',views.super_admin,name="super_admin"),
+        path('delete/', views.delete_session,name="delete_session"),
+        path('adminlogin/',views.adminlog,name="adminlogin"),
+        path('viewadmin/',views.viewadmin,name="viewadmin"),
+        path('addadmin/',views.addadmin,name="addadmin"),
+        path('addadmins/',views.addadmins,name="addadmins"),
+        path('deleteadmin/',views.deleteadmin,name="deleteadmin"),
+        path('deladmin/',views.deladmin,name="deladmin"),
 ]
