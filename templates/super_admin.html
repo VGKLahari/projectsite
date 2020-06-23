@@ -1,5 +1,7 @@
 {% extends "layout.html"%}
 
+
+
 {%block heading%}
 <h1 class="text-emphasis-variant">Super-Admin Page</h1><br><br>
 {%endblock%}
@@ -40,7 +42,7 @@
     <a class="btn btn-primary w-50" href="{% url 'addadmin'  %}" role="button" >Add a Club.</a><br><br>
     <a class="btn btn-primary w-50" href="{% url 'viewadmin' %}" role="button" >Display all admins</a><br><br>
     <a class="btn btn-primary w-50" href="http://www.google.com" role="button" >Show all clubs</a><br><br>
-    <a class="btn btn-primary w-50" href="http://www.google.com" role="button" >Delete a Club.</a><br><br>
+    <a class="btn btn-primary w-50" href="{% url 'deladmin' %}" role="button" >Delete a Club.</a><br><br>
     <a class="btn btn-primary w-50" href="http://www.google.com" role="button" >Check out a specific club</a><br><br>
     </center>
     </div>
