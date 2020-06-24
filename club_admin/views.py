@@ -168,5 +168,23 @@ def deladmin(request):
     return render(request,'deleteadmin.html',{'data':admin})
 def deleteadmin(request):
     admin_name=request.GET.get("admin_name")
-    print(admin_name)
-    return render(request,'confirmdelete.html',{'data':admin_name})
+    club_name =request.GET.get("club_name")
+    global sadmintoken
+    response = requests.post('http://localhost:5000/clubmembers',data={'clubname':club_name},headers = {'Authorization':f'Bearer {sadmintoken}'})
+    data = response.json()
+    for i in range(0,len(data)):
+        d=dict()
+        d['stuid']=data[i]['stuid']
+        d['name']=data[i]['name']
+        d['branch']=data[i]['branch']
+        d['crole']=data[i]['crole']
+        data[i] = d
+    print(data)
+    return render(request,'confirmdelete.html',{'data':data,'club':club_name,'admin':admin_name})
+
+def confirmdelete(request):
+    admin_name =request.GET.get("admin_name")
+    global sadmintoken
+    response = requests.post('http://localhost:5000/del',data={'username':admin_name},headers = {'Authorization':f'Bearer {sadmintoken}'})
+    return redirect(super_admin)
+
